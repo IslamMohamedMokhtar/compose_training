@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
@@ -27,8 +28,11 @@ fun CustomInputField(
     focusedIndicatorColor: Color = Color(0xFF4A4A4A),
     unfocusedIndicatorColor: Color = Color(0xFFDDDDDD),
     disabledIndicatorColor: Color = Color(0xFFDDDDDD),
+    backgroundColor: Color = Color.Transparent,
     labelModifier: Modifier = Modifier,
-    spacing: Dp = 8.dp
+    spacing: Dp = 8.dp,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    trailingIcon: (@Composable (() -> Unit))? = null
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         Text(
@@ -46,10 +50,15 @@ fun CustomInputField(
             singleLine = singleLine,
             maxLines = maxLines,
             enabled = enabled,
+            visualTransformation = visualTransformation,
+            trailingIcon = trailingIcon,
             colors = TextFieldDefaults.colors(
                 focusedIndicatorColor = focusedIndicatorColor,
                 unfocusedIndicatorColor = unfocusedIndicatorColor,
-                disabledIndicatorColor = disabledIndicatorColor
+                disabledIndicatorColor = disabledIndicatorColor,
+                focusedContainerColor = backgroundColor,
+                unfocusedContainerColor = backgroundColor,
+                disabledContainerColor = backgroundColor
             )
         )
     }
