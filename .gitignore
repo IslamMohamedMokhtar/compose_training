@@ -1,0 +1,85 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+# Android build
+/build/
+/app/build/
+/*.iml
+.gradle/
+.idea/
+*.log
+*.hprof
+
+# Compose compiler caches
+**/compose-cache/
+
+# Android Studio
+/.idea/
+/*.iws
+*.ipr
+
+# Kotlin/Java
+*.class
+*.jar
+*.war
+*.ear
+
+# IntelliJ
+out/
+
+# Gradle
+!gradle/wrapper/gradle-wrapper.jar
+
+# Signing / local config
+*.jks
+*.keystore
+*.pem
+*.key
+*.p12
+*.crt
+*.der
+*.bak
+*.swp
+*.tmp
+
+# Android fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Unit test / lint
+test-results/
+lint-results-*.xml
+lint/lint-results-*
+
+# OS Files
+Thumbs.db
+
+# NDK
+.externalNativeBuild/
+
+# CMake
+.cxx/
+
+# VS Code (if used)
+.vscode/
+
+# KSP (Kotlin Symbol Processing) cache
+**/build/generated/ksp/
+
+# Compose-specific caching (used in preview and build optimization)
+**/build/compose-metrics/
+**/build/compose-logs/
