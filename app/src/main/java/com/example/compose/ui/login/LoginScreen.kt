@@ -28,12 +28,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.compose.R
 import com.example.compose.ui.components.CustomInputField
 import com.example.compose.ui.components.GradientButton
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, viewModel: LoginViewModel = androidx.lifecycle.viewmodel.compose.viewModel()) {
+fun LoginScreen(modifier: Modifier = Modifier, viewModel: LoginViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsState()
 
     Column(
@@ -96,9 +97,7 @@ fun LoginScreen(modifier: Modifier = Modifier, viewModel: LoginViewModel = andro
         )
         GradientButton(
             text = "Login",
-            onClick = {
-
-            },
+            onClick = viewModel::onLoginClick,
             gradient = gradient,
             modifier = Modifier.fillMaxWidth(),
             textColor = MaterialTheme.colorScheme.onPrimary,
@@ -109,7 +108,7 @@ fun LoginScreen(modifier: Modifier = Modifier, viewModel: LoginViewModel = andro
         Text(
             text = "Forgot password?",
             modifier = Modifier
-                .clickable(onClick = viewModel::onLoginClick)
+                .clickable(onClick = {})
                 .padding(8.dp)
         )
 
