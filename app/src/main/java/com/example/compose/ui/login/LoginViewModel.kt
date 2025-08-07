@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.compose.data.remote.model.request.LoginRequest
 import com.example.compose.domain.use_case.login.LoginUseCase
+import com.example.compose.util.SharedPreferencesHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val sharedPreferencesHelper: SharedPreferencesHelper,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(LoginUiState())
@@ -37,7 +39,11 @@ class LoginViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val response = loginUseCase(LoginRequest(_uiState.value.username, _uiState.value.password))
             withContext(Dispatchers.Main){
-                if(response.isSuccess) onSuccess.invoke()
+                if(response.isSuccess) {
+                    val temp = response.getOrNull()
+                    sharedPreferencesHelper.token = temp
+                    onSuccess.invoke()
+                }
             }
         }
     }

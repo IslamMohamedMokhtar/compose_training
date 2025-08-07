@@ -16,16 +16,29 @@ import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.compose.ui.login.DashBoard
+import com.example.compose.ui.dashboard.DashBoard
 import com.example.compose.ui.login.LoginScreen
 import com.example.compose.ui.login.SplashScreen
 import com.example.compose.ui.theme.ComposeTheme
 import com.example.compose.ui.util.LocalNavController
 import com.example.compose.ui.util.NavigationEnum
+import com.example.compose.util.SharedPreferencesHelper
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import javax.inject.Scope
+
+
+@Scope
+@Retention(AnnotationRetention.RUNTIME)
+annotation class PerApplication
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    @PerApplication
+    lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
@@ -42,28 +55,27 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-fun MainApp(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
+    @Composable
+    fun MainApp(modifier: Modifier = Modifier) {
+        val navController = rememberNavController()
 
-    CompositionLocalProvider(LocalNavController provides navController) {
-        NavHost(
-            navController = navController,
-            startDestination = NavigationEnum.SPLASH.route
-        ) {
-            composable(NavigationEnum.LOGIN.route) { LoginScreen(modifier) }
-            composable(NavigationEnum.SPLASH.route) { SplashScreen(modifier) }
-            composable(NavigationEnum.DASHBOARD.route) { DashBoard(modifier) }
+        CompositionLocalProvider(LocalNavController provides navController) {
+            NavHost(
+                navController = navController,
+                startDestination = NavigationEnum.SPLASH.route
+            ) {
+                composable(NavigationEnum.LOGIN.route) { LoginScreen(modifier) }
+                composable(NavigationEnum.SPLASH.route) { SplashScreen(modifier, sharedPreferencesHelper) }
+                composable(NavigationEnum.DASHBOARD.route) { DashBoard(modifier) }
+            }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    ComposeTheme {
-        MainApp()
+    @Preview(showBackground = true)
+    @Composable
+    fun GreetingPreview() {
+        ComposeTheme {
+            MainApp()
+        }
     }
 }

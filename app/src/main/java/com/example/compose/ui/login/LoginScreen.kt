@@ -103,7 +103,7 @@ fun LoginScreen(modifier: Modifier = Modifier, viewModel: LoginViewModel = hiltV
             onClick = {
                 viewModel.onLoginClick {
                     navController.navigate(NavigationEnum.DASHBOARD.route) {
-//                        popUpTo(NavigationEnum.LOGIN.route) { inclusive = true }
+                        popUpTo(NavigationEnum.LOGIN.route) { inclusive = true }
                     }
                 }
             },

@@ -7,9 +7,7 @@ import javax.inject.Inject
 class LoginUseCaseImpl @Inject constructor(private val loginRepository: LoginRepository): LoginUseCase {
     override suspend fun invoke(
         loginRequest: LoginRequest
-    ): Result<Unit> {
-        val token = loginRepository(loginRequest)
-        return if (token.isSuccess) Result.success(Unit)
-        else Result.failure(Exception("Login failed"))
+    ): Result<String?> {
+        return loginRepository(loginRequest)
     }
 }

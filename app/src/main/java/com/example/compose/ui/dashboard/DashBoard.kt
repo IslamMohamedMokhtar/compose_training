@@ -1,4 +1,4 @@
-package com.example.compose.ui.login
+package com.example.compose.ui.dashboard
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
