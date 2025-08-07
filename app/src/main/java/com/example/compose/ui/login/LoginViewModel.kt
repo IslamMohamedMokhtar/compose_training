@@ -5,12 +5,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.compose.data.remote.model.request.LoginRequest
 import com.example.compose.domain.use_case.login.LoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
@@ -32,9 +33,12 @@ class LoginViewModel @Inject constructor(
         _uiState.update { it.copy(isPasswordVisible = !it.isPasswordVisible) }
     }
 
-    fun onLoginClick() {
+    fun onLoginClick(onSuccess: () -> Unit) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = loginUseCase(LoginRequest(_uiState.value.username, _uiState.value.password))
+            withContext(Dispatchers.Main){
+                if(response.isSuccess) onSuccess.invoke()
+            }
         }
     }
 }

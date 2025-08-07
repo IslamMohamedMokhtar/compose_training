@@ -32,6 +32,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.compose.R
 import com.example.compose.ui.components.CustomInputField
 import com.example.compose.ui.components.GradientButton
+import com.example.compose.ui.util.LocalNavController
+import com.example.compose.ui.util.NavigationEnum
 
 @Composable
 fun LoginScreen(modifier: Modifier = Modifier, viewModel: LoginViewModel = hiltViewModel()) {
@@ -95,9 +97,16 @@ fun LoginScreen(modifier: Modifier = Modifier, viewModel: LoginViewModel = hiltV
         val gradient = Brush.horizontalGradient(
             colors = listOf(Color(0xFFFD3177), Color(0xFFFF5E5E)) // Green gradient
         )
+        val navController = LocalNavController.current
         GradientButton(
             text = "Login",
-            onClick = viewModel::onLoginClick,
+            onClick = {
+                viewModel.onLoginClick {
+                    navController.navigate(NavigationEnum.DASHBOARD.route) {
+//                        popUpTo(NavigationEnum.LOGIN.route) { inclusive = true }
+                    }
+                }
+            },
             gradient = gradient,
             modifier = Modifier.fillMaxWidth(),
             textColor = MaterialTheme.colorScheme.onPrimary,
