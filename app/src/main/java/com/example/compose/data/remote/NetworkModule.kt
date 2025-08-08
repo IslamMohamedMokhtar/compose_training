@@ -1,10 +1,12 @@
 package com.example.compose.data.remote
 
 import com.example.compose.data.remote.api.ApiService
+import com.example.compose.util.SharedPreferencesHelper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import javax.inject.Singleton
@@ -27,11 +29,27 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideInterceptor(sharedPreferencesHelper: SharedPreferencesHelper): Interceptor {
+        return Interceptor {
+            val request = it.request().newBuilder()
+                .apply {
+                    if (!sharedPreferencesHelper.token.isNullOrEmpty())
+                        addHeader("Authorization", "Bearer ${sharedPreferencesHelper.token}")
+                }
+                .build()
+            it.proceed(request)
+        }
+    }
+
+    @Provides
+    @Singleton
     fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor
+        loggingInterceptor: HttpLoggingInterceptor,
+        interceptor: Interceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(interceptor)
             .build()
     }
 

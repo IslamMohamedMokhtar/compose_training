@@ -2,6 +2,7 @@ package com.example.compose.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,13 +11,13 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,19 +34,24 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.R
+import com.example.compose.ui.theme.ComposeTheme
+import com.example.compose.ui.theme.LocalExtendedColors
 
 @Composable
 fun RequestCard(
     modifier: Modifier = Modifier,
     textColor: Color = Color.Red,
-    backgroundColor: List<Color> = listOf(Color(0xFFFFFFFF), Color(0xFFFFFFFF))
+    backgroundColor: List<Color> = listOf(
+        LocalExtendedColors.current.background,
+        LocalExtendedColors.current.background
+    )
 ) {
     val isTablet = booleanResource(id = R.bool.isTablet)
 
     Box(
         modifier = modifier
             .clickable { /* your onClick logic here */ }
-            .height(if (isTablet) 108.dp else 72.dp)
+            .height(if (isTablet) 82.dp else 72.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
             .clipToBounds()
@@ -64,12 +70,14 @@ fun RequestCard(
                 .clip(RoundedCornerShape(topStart = 8.dp, bottomStart = 8.dp)) // round left corners
         )
         Row(
-            modifier = Modifier.align(Alignment.Center)
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.Center)
+                .padding(horizontal = 5.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
+            // Left section
             Row(
-                modifier = Modifier
-                    .fillMaxWidth(0.5f)
-                    .padding(start = 5.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
@@ -93,30 +101,33 @@ fun RequestCard(
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
-
-            Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                Text(
-                    "Used/Total",
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = TextStyle(fontWeight = FontWeight.Normal, color = Color(0xFF555555))
-                )
-                Text(
-                    "4/12",
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = TextStyle(fontWeight = FontWeight.Normal),
-                    textAlign = TextAlign.Center
-                )
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                    Text(
+                        "Used/Total",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = TextStyle(fontWeight = FontWeight.Normal, color = Color(0xFF555555))
+                    )
+                    Text(
+                        "4/12",
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = TextStyle(fontWeight = FontWeight.Normal),
+                        textAlign = TextAlign.Center
+                    )
+                }
+                Spacer(modifier = Modifier.width(8.dp))
+                IconButton(onClick = { /* handle click */ }) {
+                    Icon(
+                        imageVector = Icons.Outlined.Edit,
+                        contentDescription = null,
+                        modifier = Modifier.padding(5.dp)
+                    )
+                }
             }
-            Spacer(modifier = Modifier.size(8.dp))
-            Icon(
-                imageVector = Icons.Outlined.Edit,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(5.dp)
-                    .clickable { })
         }
     }
 }
@@ -125,5 +136,8 @@ fun RequestCard(
 @Preview
 @Composable
 fun RequestCardPreview() {
-    RequestCard()
+
+    ComposeTheme {
+        RequestCard()
+    }
 }

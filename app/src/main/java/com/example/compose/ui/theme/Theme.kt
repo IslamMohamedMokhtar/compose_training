@@ -11,7 +11,7 @@ import androidx.compose.runtime.staticCompositionLocalOf
 // Your extended colors data class
 @Immutable
 data class ExtendedColors(
-    val background2: Color,
+    val background: Color,
     val primary: Color,
     val secondary: Color,
     val tertiary: Color,
@@ -21,7 +21,6 @@ val LocalExtendedColors = staticCompositionLocalOf<ExtendedColors> {
     error("No ExtendedColors provided")
 }
 
-// Material3 color schemes for light and dark themes
 private val DarkColorSchemeM3 = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,
@@ -40,14 +39,14 @@ private val DarkExtendedColors = ExtendedColors(
     primary = Purple80,
     secondary = PurpleGrey80,
     tertiary = Pink80,
-    background2 = Color(0xFF1E1D1D)
+    background = Color(0xFF1E1D1D)
 )
 
 private val LightExtendedColors = ExtendedColors(
     primary = Purple40,
     secondary = PurpleGrey40,
     tertiary = Pink40,
-    background2 = Color(0xFFFFF8F8)
+    background = Color(0xFFFFF8F8)
 )
 
 @Composable

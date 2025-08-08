@@ -67,4 +67,8 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.logging.interceptor)
+    implementation(libs.material.calendarview){
+        exclude(group = "com.android.support")
+    }
+    implementation(libs.support.v4)
 }
