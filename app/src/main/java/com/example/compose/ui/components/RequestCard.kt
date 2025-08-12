@@ -2,6 +2,7 @@ package com.example.compose.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,11 +20,12 @@ import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.booleanResource
@@ -35,30 +37,36 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose.R
 import com.example.compose.ui.theme.ComposeTheme
-import com.example.compose.ui.theme.LocalExtendedColors
 
 @Composable
 fun RequestCard(
     modifier: Modifier = Modifier,
     textColor: Color = Color.Red,
     backgroundColor: List<Color> = listOf(
-        LocalExtendedColors.current.background,
-        LocalExtendedColors.current.background
+        Color.Transparent,
+        Color.Transparent
     )
 ) {
     val isTablet = booleanResource(id = R.bool.isTablet)
 
     Box(
         modifier = modifier
-            .clickable { /* your onClick logic here */ }
             .height(if (isTablet) 82.dp else 72.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
-            .clipToBounds()
             .background(
                 brush = Brush.verticalGradient(
                     colors = backgroundColor
                 )
+            )
+            .clickable(
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(
+                    color = textColor
+                ),
+                onClick = {
+
+                }
             )
     ) {
         Box(
