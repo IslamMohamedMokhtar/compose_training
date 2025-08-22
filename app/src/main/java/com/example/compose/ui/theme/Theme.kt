@@ -21,44 +21,52 @@ data class ExtendedColors(
     val primary: Color,
     val secondary: Color,
     val tertiary: Color,
+    val onPrimary: Color,
+    val colorF7F8FA: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf<ExtendedColors> {
     error("No ExtendedColors provided")
 }
 
-private val DarkColorSchemeM3 = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80,
-    background = Color(0xFF1E1D1D)
-)
-
-private val LightColorSchemeM3 = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40,
-    background = Color(0xFFFFF8F8)
-)
-
 private val DarkExtendedColors = ExtendedColors(
-    primary = Purple80,
-    secondary = PurpleGrey80,
+    primary = Primary,
+    secondary = Secondary,
     tertiary = Pink80,
-    background = Color(0xFF1E1D1D)
+    background = Color(0xFF1E1D1D),
+    onPrimary = Color(0xFFFD5068),
+    colorF7F8FA = ColorF7F8FA
 )
 
 private val LightExtendedColors = ExtendedColors(
-    primary = Purple40,
-    secondary = PurpleGrey40,
+    primary = Primary,
+    secondary = Secondary,
     tertiary = Pink40,
-    background = Color(0xFFFFF8F8)
+    background = Color(0xFFFFF8F8),
+    onPrimary = Color(0xFFFD5068),
+    colorF7F8FA = ColorF7F8FA
+)
+
+private val DarkColorSchemeM3 = darkColorScheme(
+    primary = DarkExtendedColors.primary,
+    secondary = DarkExtendedColors.secondary,
+    tertiary = Pink80,
+    background = Color(0xFF1E1D1D),
+    onPrimary = DarkExtendedColors.onPrimary
+)
+
+private val LightColorSchemeM3 = lightColorScheme(
+    primary = LightExtendedColors.primary,
+    secondary = LightExtendedColors.secondary,
+    tertiary = Pink40,
+    background = Color(0xFFFFF8F8),
+    onPrimary = LightExtendedColors.onPrimary
 )
 
 @Composable
 fun ComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val context = LocalContext.current

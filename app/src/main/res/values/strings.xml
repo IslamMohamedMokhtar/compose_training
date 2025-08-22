@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Compose</string>
+    <string name="navigation_calendar">Calendar</string>
 </resources>

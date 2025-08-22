@@ -4,7 +4,6 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -58,11 +57,10 @@ class MainActivity : ComponentActivity() {
             ComposeTheme {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    contentWindowInsets = WindowInsets.safeDrawing
+                    contentWindowInsets = WindowInsets.safeDrawing,
                 ) { innerPadding ->
                     MainApp(
-                        modifier = Modifier.padding(innerPadding),
-                        innerPadding
+                        modifier = Modifier.padding(innerPadding)
                     )
                 }
             }
@@ -70,7 +68,7 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun MainApp(modifier: Modifier = Modifier, innerPadding: PaddingValues) {
+    fun MainApp(modifier: Modifier = Modifier) {
         val navController = rememberNavController()
 
         CompositionLocalProvider(LocalNavController provides navController) {
@@ -80,7 +78,7 @@ class MainActivity : ComponentActivity() {
             ) {
                 composable(NavigationEnum.LOGIN.route) { LoginScreen(modifier) }
                 composable(NavigationEnum.SPLASH.route) { SplashScreen(modifier, sharedPreferencesHelper) }
-                composable(NavigationEnum.DASHBOARD.route) { DashBoard(modifier, innerPadding) }
+                composable(NavigationEnum.DASHBOARD.route) { DashBoard() }
             }
         }
     }
