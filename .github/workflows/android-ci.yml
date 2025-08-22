@@ -21,18 +21,18 @@ jobs:
       - name: Gradle cache & wrapper
         uses: gradle/actions/setup-gradle@v3
 
-      # Optional: static analysis if you use them
+      # Optional: static analysis
       - name: Run lint
-        run: ./gradlew lintDebug
+        run: ./gradlew lintDebug --stacktrace
 
       - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew testDebugUnitTest --stacktrace
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --stacktrace
 
       - name: Upload APK (debug) as artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
-          path: **/build/outputs/apk/debug/*.apk
+          path: "**/build/outputs/apk/debug/*.apk"
