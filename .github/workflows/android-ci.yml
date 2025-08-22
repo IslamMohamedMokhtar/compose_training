@@ -21,7 +21,9 @@ jobs:
       - name: Gradle cache & wrapper
         uses: gradle/actions/setup-gradle@v3
 
-      # Optional: static analysis
+      - name: Make Gradle wrapper executable
+        run: chmod +x ./gradlew
+
       - name: Run lint
         run: ./gradlew lintDebug --stacktrace
 
