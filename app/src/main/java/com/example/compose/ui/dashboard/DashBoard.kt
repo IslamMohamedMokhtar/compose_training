@@ -1,5 +1,7 @@
 package com.example.compose.ui.dashboard
 
+import android.os.Build
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -44,10 +46,12 @@ fun DashBoard() {
             startDestination = NavigationEnum.CALENDAR.route,
             modifier = Modifier.padding(innerPadding)
         ) {
+            val padding = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.VANILLA_ICE_CREAM) PaddingValues()
+            else innerPadding
             composable(NavigationEnum.CALENDAR.route) { CalendarScreen() }
-            composable(NavigationEnum.SETTINGS.route) { SettingScreen() }
-//            composable("search") { SearchScreen() }
-//            composable("profile") { ProfileScreen() }
+            composable(NavigationEnum.BALANCE.route) { SettingScreen(padding) }
+            composable(NavigationEnum.EMPLOYEE.route) { SettingScreen(padding) }
+            composable(NavigationEnum.SETTINGS.route) { SettingScreen(padding) }
         }
     }
 }

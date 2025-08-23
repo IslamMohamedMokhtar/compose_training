@@ -24,6 +24,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import coil.compose.SubcomposeAsyncImage
 import com.example.compose.R
 import com.example.compose.ui.components.ProBadgeView
@@ -83,7 +85,8 @@ fun CompanyHeaderView(modifier: Modifier = Modifier) {
                     "Enozom Software",
                     style = MaterialTheme.typography.bodySmall.copy(
                         color = LocalExtendedColors.current.textSecondary
-                    )
+                    ),
+                    modifier = Modifier.padding(end = 12.dp)
                 )
                 ProBadgeView()
             }
@@ -100,7 +103,7 @@ fun CompanyHeaderView(modifier: Modifier = Modifier) {
                     tint = LocalExtendedColors.current.textSecondary
                 )
                 Text(
-                    "Enozom Software",
+                    "Egypt",
                     style = MaterialTheme.typography.bodySmall.copy(
                         color = LocalExtendedColors.current.textSecondary
                     )
@@ -188,7 +191,10 @@ fun ShimmerEffect(modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun CompanyHeaderPreview() {
-    ComposeTheme {
-        CompanyHeaderView()
+    val fakeNavController = rememberNavController()
+    CompositionLocalProvider(LocalNavController provides fakeNavController) {
+        ComposeTheme {
+            CompanyHeaderView()
+        }
     }
 }

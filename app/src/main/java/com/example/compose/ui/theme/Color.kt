@@ -14,3 +14,9 @@ val ColorBBBBBB = Color(0xFFBBBBBB)
 
 val ColorFFE109 = Color(0xFFFFE109)
 val ColorFFE000 = Color(0xFFFFE000)
+
+val Color333333 = Color(0xFF333333)
+val Color777575 = Color(0xFF777575)
+
+val Color169AE5 = Color(0xFF169AE5)
+val Color51B6EF = Color(0xFF51B6EF)

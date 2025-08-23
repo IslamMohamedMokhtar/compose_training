@@ -25,7 +25,8 @@ data class ExtendedColors(
     val colorF7F8FA: Color,
     val textAccent: Color,
     val textSecondary: Color,
-    val yellow: Color
+    val yellow: Color,
+    val titleColor: Color
 )
 
 val LocalExtendedColors = staticCompositionLocalOf<ExtendedColors> {
@@ -37,11 +38,12 @@ private val DarkExtendedColors = ExtendedColors(
     secondary = Secondary,
     tertiary = Pink80,
     background = Color(0xFF1E1D1D),
-    onPrimary = Color.White,
+    onPrimary = Color777575,
     colorF7F8FA = ColorF7F8FA,
     textAccent = Color.Black,
     textSecondary = ColorBBBBBB,
-    yellow = ColorFFE000
+    yellow = ColorFFE000,
+    titleColor = Color51B6EF
 )
 
 private val LightExtendedColors = ExtendedColors(
@@ -49,11 +51,12 @@ private val LightExtendedColors = ExtendedColors(
     secondary = Secondary,
     tertiary = Pink40,
     background = Color(0xFFFFF8F8),
-    onPrimary = Color.Black,
+    onPrimary = Color333333,
     colorF7F8FA = ColorF7F8FA,
     textAccent = Color.White,
     textSecondary = Color555555,
-    yellow = ColorFFE109
+    yellow = ColorFFE109,
+    titleColor = Color169AE5
 )
 
 private val DarkColorSchemeM3 = darkColorScheme(
@@ -61,7 +64,7 @@ private val DarkColorSchemeM3 = darkColorScheme(
     secondary = DarkExtendedColors.secondary,
     tertiary = Pink80,
     background = Color(0xFF1E1D1D),
-    onPrimary = DarkExtendedColors.onPrimary,
+    onPrimary = DarkExtendedColors.onPrimary
 )
 
 private val LightColorSchemeM3 = lightColorScheme(
