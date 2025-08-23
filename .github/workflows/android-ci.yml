@@ -1,40 +1,57 @@
 name: Android CI
 
 on:
-  push:
-    branches: [ master ]
-  pull_request:
+  workflow_dispatch:
+    inputs:
+      action:
+        description: "Select action to run"
+        required: true
+        type: choice
+        options:
+          - lint
+          - test
+          - build
 
 jobs:
-  build-test:
+  lint:
+    if: ${{ github.event.inputs.action == 'lint' }}
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
+      - uses: gradle/actions/setup-gradle@v3
+      - run: chmod +x ./gradlew
+      - run: ./gradlew lintDebug --stacktrace
 
-      - name: Gradle cache & wrapper
-        uses: gradle/actions/setup-gradle@v3
+  test:
+    if: ${{ github.event.inputs.action == 'test' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v3
+      - run: chmod +x ./gradlew
+      - run: ./gradlew testDebugUnitTest --stacktrace
 
-      - name: Make Gradle wrapper executable
-        run: chmod +x ./gradlew
-
-      - name: Run lint
-        run: ./gradlew lintDebug --stacktrace
-
-      - name: Run unit tests
-        run: ./gradlew testDebugUnitTest --stacktrace
-
-      - name: Build debug APK
-        run: ./gradlew assembleDebug --stacktrace
-
-      - name: Upload APK (debug) as artifact
-        uses: actions/upload-artifact@v4
+  build:
+    if: ${{ github.event.inputs.action == 'build' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v3
+      - run: chmod +x ./gradlew
+      - run: ./gradlew assembleDebug --stacktrace
+      - uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk
           path: "**/build/outputs/apk/debug/*.apk"

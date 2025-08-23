@@ -3,6 +3,7 @@ package com.example.compose.ui.calender
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -34,8 +35,11 @@ fun CalendarScreen(modifier: Modifier = Modifier){
         "Date",
         "Elderberry",
     )
+    val listState = rememberLazyListState()
+
     val listModifier = Modifier.padding(horizontal = 20.dp, vertical = 5.dp)
     LazyColumn(
+        state = listState,
         modifier = modifier
     ) {
         item {

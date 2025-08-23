@@ -3,6 +3,7 @@ package com.example.compose.ui.components
 import android.graphics.drawable.GradientDrawable
 import android.text.style.ForegroundColorSpan
 import android.view.ViewGroup
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -10,7 +11,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
@@ -29,9 +29,10 @@ fun CustomCalendarView(
     onMonthChanged: (year: Int, month: Int) -> Unit = { _, _ -> }
 ) {
     val cal = Calendar.getInstance().apply { time = initialSelectedDate }
-    val primaryColor = Color(0xFFFF5E5E).toArgb()
-    val background = Color(0xFFFFFFFF).toArgb()
-    val onPrimary = Color(0xFF000000).toArgb()
+    val primaryColor = MaterialTheme.colorScheme.primary.toArgb()
+    val background = MaterialTheme.colorScheme.background.toArgb()
+    val onPrimary = MaterialTheme.colorScheme.onPrimary.toArgb()
+    val semiTransparentColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f).toArgb()
 
     var selectedDate by remember {
         mutableStateOf(
@@ -99,8 +100,6 @@ fun CustomCalendarView(
                 }
 
                 override fun decorate(view: DayViewFacade?) {
-                    // 50% alpha black color, adjust alpha as needed (#80 = 50%)
-                    val semiTransparentColor = Color(0x80000000).toArgb()
                     view?.addSpan(ForegroundColorSpan(semiTransparentColor))
                 }
             })

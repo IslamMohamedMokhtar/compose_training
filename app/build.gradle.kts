@@ -71,4 +71,6 @@ dependencies {
         exclude(group = "com.android.support")
     }
     implementation(libs.support.v4)
+    implementation(libs.coil.compose)
+    implementation(libs.zoomable)
 }

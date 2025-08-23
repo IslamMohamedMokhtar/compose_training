@@ -17,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.ui.dashboard.DashBoard
+import com.example.compose.ui.imagePreviewer.FullScreenImageScreen
 import com.example.compose.ui.login.LoginScreen
 import com.example.compose.ui.login.SplashScreen
 import com.example.compose.ui.theme.ComposeTheme
@@ -79,6 +80,10 @@ class MainActivity : ComponentActivity() {
                 composable(NavigationEnum.LOGIN.route) { LoginScreen(modifier) }
                 composable(NavigationEnum.SPLASH.route) { SplashScreen(modifier, sharedPreferencesHelper) }
                 composable(NavigationEnum.DASHBOARD.route) { DashBoard() }
+                composable(NavigationEnum.IMAGE_PREVIEW.route) { backStackEntry ->
+                    val imageUrl = backStackEntry.arguments?.getString("url") ?: ""
+                    FullScreenImageScreen(imageUrl = imageUrl)
+                }
             }
         }
     }

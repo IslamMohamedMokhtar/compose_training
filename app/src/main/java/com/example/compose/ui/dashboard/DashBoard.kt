@@ -25,6 +25,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.compose.R
 import com.example.compose.ui.calender.CalendarScreen
+import com.example.compose.ui.setting.SettingScreen
 import com.example.compose.ui.theme.ComposeTheme
 import com.example.compose.ui.theme.LocalExtendedColors
 import com.example.compose.ui.util.NavigationEnum
@@ -44,6 +45,7 @@ fun DashBoard() {
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(NavigationEnum.CALENDAR.route) { CalendarScreen() }
+            composable(NavigationEnum.SETTINGS.route) { SettingScreen() }
 //            composable("search") { SearchScreen() }
 //            composable("profile") { ProfileScreen() }
         }
@@ -108,8 +110,8 @@ fun BottomNavBar(navController: NavHostController) {
                     label = { Text(item.label) },
                     colors = NavigationBarItemDefaults.colors(
                         indicatorColor = Color.Transparent,
-                        selectedIconColor = MaterialTheme.colorScheme.onPrimary,
-                        selectedTextColor = MaterialTheme.colorScheme.onPrimary,
+                        selectedIconColor = MaterialTheme.colorScheme.primary,
+                        selectedTextColor = MaterialTheme.colorScheme.primary,
                         unselectedIconColor = MaterialTheme.colorScheme.secondary,
                         unselectedTextColor = MaterialTheme.colorScheme.secondary,
                     )
