@@ -2,16 +2,15 @@ package com.example.compose.data.remote
 
 import com.example.compose.data.remote.api.ApiService
 import com.example.compose.util.SharedPreferencesHelper
+import com.example.retrofitlibrary.NetworkModule
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.Interceptor
-import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import javax.inject.Singleton
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -43,24 +42,13 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(
-        loggingInterceptor: HttpLoggingInterceptor,
-        interceptor: Interceptor
-    ): OkHttpClient {
-        return OkHttpClient.Builder()
-            .addInterceptor(loggingInterceptor)
-            .addInterceptor(interceptor)
-            .build()
+    fun provideRetrofit(authInterceptor: Interceptor): Retrofit {
+        val networkModule = NetworkModule(
+            baseUrl = BASE_URL,
+            interceptors = listOf(authInterceptor)
+        )
+        return networkModule.createRetrofit()
     }
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
     @Provides
     @Singleton

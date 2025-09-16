@@ -63,15 +63,12 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
-    implementation(libs.retrofit)
-    implementation(libs.retrofit.gson)
-    implementation(libs.gson)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.logging.interceptor)
     implementation(libs.material.calendarview){
         exclude(group = "com.android.support")
     }
     implementation(libs.support.v4)
     implementation(libs.coil.compose)
     implementation(libs.zoomable)
+    implementation(project(":retrofitlibrary"))
 }
